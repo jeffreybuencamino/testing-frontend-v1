@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import './App.css';
+import MainDisplay from "./MainDisplay";
 
 function App() {
 
@@ -45,8 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>message from backend: { message}</h1>
-      <button onClick={handleAddBook}>Click me</button>
+      <MainDisplay message={message} handleAddBook={handleAddBook}/>
     </div>
   );
 }
