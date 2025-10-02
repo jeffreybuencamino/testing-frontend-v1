@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from "react"; 
+// import React, { useState, useEffect } from "react"; 
 import MainDisplay from "./MainDisplay";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
+import Create from "./Create";
+import BlogDetails from "./BlogDetails";
+import useFetch from "./useFetch";
 
 function App() {
 
-  const [message, setMessage] = useState("");
-
+  // const [message, setMessage] = useState("");
+  // const [data, setData] = useState([]);
+  // const [isPending, setIsPending] = useState(true);
+  // const [error, setError] = useState(null);
+  const {data, message} = useFetch("http://localhost:3000/blogs")
   
 
-  const handleAddBook = () => {
+  const handleAddBookButton = () => {
 
     const bookData = {
-      
       title: "Title of book",
       author: "Jeffrey Buencamino",
       pages: 328,
@@ -37,27 +42,42 @@ function App() {
 
 
     // GET request example
-  useEffect(() => {
-    fetch("http://localhost:3000/api/message")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.message);
-        setMessage(data.message)
-      });
-  }, []);
+  // useEffect(() => {
+  //   //Fetching welcome message
+  //   fetch("http://localhost:3000/api/message")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data.message);
+  //       setMessage(data.message)
+  //     });
+
+  //     // Fetching blogs data
+  //   fetch("http://localhost:3000/blogs")
+  //   .then(res => res.json())
+  //   .then((data) => {
+  //     // console.log(data);
+  //     setData(data);
+
+  //   })
+  // }, []);
 
 
 
   return (
     <Router>
+
       <div className="App">
         <Navbar/>
         <div className="content">
           <Routes>
             <Route 
             exact path="/"
-            element={<MainDisplay message={message} handleAddBook={handleAddBook} />}>
+            element={<MainDisplay data={data} message={message} handleAddBookButton={handleAddBookButton} />}>
             </Route>
+            <Route exact path="/create"
+            element={<Create/>}/>
+            <Route exact path="/blog/:id"
+            element={<BlogDetails/>}/>
           </Routes>
         </div>
       </div>
