@@ -10,7 +10,6 @@ const useFetch = (url) => {
         fetch("http://localhost:3000/api/message")
           .then((res) => res.json())
           .then((data) => {
-            console.log(data.message);
             setMessage(data.message)
           });
     
@@ -18,7 +17,7 @@ const useFetch = (url) => {
         fetch(url)
         .then(res => res.json())
         .then((data) => {
-          // console.log(data);
+          console.log(data);
           setData(data);
     
         })

@@ -4,7 +4,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Create from "./Create";
 import BlogDetails from "./BlogDetails";
-import useFetch from "./useFetch";
+// import useFetch from "./useFetch";
+import EditBlog from "./EditBlog";
+import PersonalResume from "./PersonalResume";
+import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 
 function App() {
 
@@ -12,32 +16,32 @@ function App() {
   // const [data, setData] = useState([]);
   // const [isPending, setIsPending] = useState(true);
   // const [error, setError] = useState(null);
-  const {data, message} = useFetch("http://localhost:3000/blogs")
+  // const {data, message} = useFetch("http://localhost:3000/blogs")
   
 
-  const handleAddBookButton = () => {
+  // const handleAddBookButton = () => {
 
-    const bookData = {
-      title: "Title of book",
-      author: "Jeffrey Buencamino",
-      pages: 328,
-      genres: [
-        "Sci-fi",
-        "Mystery"
-      ],
-      rating: 9
-    }
+  //   const bookData = {
+  //     title: "Title of book",
+  //     author: "Jeffrey Buencamino",
+  //     pages: 328,
+  //     genres: [
+  //       "Sci-fi",
+  //       "Mystery"
+  //     ],
+  //     rating: 9
+  //   }
 
-    fetch('http://localhost:3000/test-api', {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(bookData)
-    })
-    .then((res) => res.json())
-    .then((data) => {console.log("Response from server: ", data)})
-    .catch((err) => { console.log("Failed to fetch: ", err)})
+  //   fetch('http://localhost:3000/test-api', {
+  //     method: "POST",
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify(bookData)
+  //   })
+  //   .then((res) => res.json())
+  //   .then((data) => {console.log("Response from server: ", data)})
+  //   .catch((err) => { console.log("Failed to fetch: ", err)})
 
-  }
+  // }
 
 
 
@@ -72,12 +76,20 @@ function App() {
           <Routes>
             <Route 
             exact path="/"
-            element={<MainDisplay data={data} message={message} handleAddBookButton={handleAddBookButton} />}>
+            element={<MainDisplay/>}>
             </Route>
             <Route exact path="/create"
             element={<Create/>}/>
             <Route exact path="/blog/:id"
             element={<BlogDetails/>}/>
+            <Route exact path='/edit/:id'
+            element={<EditBlog/>}/>
+            <Route exact path="/personal-resume"
+            element={<PersonalResume/>}/>
+            <Route exact path="/login"
+            element={<LoginForm/>}/>
+            <Route exact path="/signup"
+            element={<SignupForm/>} />
           </Routes>
         </div>
       </div>
