@@ -1,10 +1,19 @@
 // import React, { useState, useEffect } from "react"; 
-import MainDisplay from "./MainDisplay";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MainDisplay from "./MainDisplay";
 import Navbar from "./Navbar";
 import Create from "./Create";
 import BlogDetails from "./BlogDetails";
-import useFetch from "./useFetch";
+// import useFetch from "./useFetch";
+import EditBlog from "./EditBlog";
+import PersonalResume from "./PersonalResume";
+import SignupForm from "./SignupForm";
+import LoginForm from "./LoginForm";
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { auth } from './firebase/firebase';  // your Firebase auth instance
+// import { useEffect, useState } from "react";
+
+
 
 function App() {
 
@@ -12,39 +21,39 @@ function App() {
   // const [data, setData] = useState([]);
   // const [isPending, setIsPending] = useState(true);
   // const [error, setError] = useState(null);
-  const {data, message} = useFetch("http://localhost:3000/blogs")
+  // const {data, message} = useFetch("/blogs")
   
 
-  const handleAddBookButton = () => {
+  // const handleAddBookButton = () => {
 
-    const bookData = {
-      title: "Title of book",
-      author: "Jeffrey Buencamino",
-      pages: 328,
-      genres: [
-        "Sci-fi",
-        "Mystery"
-      ],
-      rating: 9
-    }
+  //   const bookData = {
+  //     title: "Title of book",
+  //     author: "Jeffrey Buencamino",
+  //     pages: 328,
+  //     genres: [
+  //       "Sci-fi",
+  //       "Mystery"
+  //     ],
+  //     rating: 9
+  //   }
 
-    fetch('http://localhost:3000/test-api', {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(bookData)
-    })
-    .then((res) => res.json())
-    .then((data) => {console.log("Response from server: ", data)})
-    .catch((err) => { console.log("Failed to fetch: ", err)})
+  //   fetch('/test-api', {
+  //     method: "POST",
+  //     headers: {"Content-Type": "application/json"},
+  //     body: JSON.stringify(bookData)
+  //   })
+  //   .then((res) => res.json())
+  //   .then((data) => {console.log("Response from server: ", data)})
+  //   .catch((err) => { console.log("Failed to fetch: ", err)})
 
-  }
+  // }
 
 
 
     // GET request example
   // useEffect(() => {
   //   //Fetching welcome message
-  //   fetch("http://localhost:3000/api/message")
+  //   fetch("/api/message")
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.log(data.message);
@@ -52,7 +61,7 @@ function App() {
   //     });
 
   //     // Fetching blogs data
-  //   fetch("http://localhost:3000/blogs")
+  //   fetch("/blogs")
   //   .then(res => res.json())
   //   .then((data) => {
   //     // console.log(data);
@@ -61,6 +70,20 @@ function App() {
   //   })
   // }, []);
 
+  // const [user, setUser] = useState(null);
+
+  // useEffect(()=>{
+  //   onAuthStateChanged(auth, (user)=>{
+  //     console.log("Logging to console for testing");
+  //     if (user) {
+  //       setUser(user);
+  //       console.log('User signed in:', user.email);
+  //     } else {
+  //       setUser(null);
+  //       console.log('User signed out');
+  //     }
+  //   })
+  // },[user])
 
 
   return (
@@ -72,12 +95,20 @@ function App() {
           <Routes>
             <Route 
             exact path="/"
-            element={<MainDisplay data={data} message={message} handleAddBookButton={handleAddBookButton} />}>
+            element={<MainDisplay/>}>
             </Route>
             <Route exact path="/create"
             element={<Create/>}/>
             <Route exact path="/blog/:id"
             element={<BlogDetails/>}/>
+            <Route exact path='/edit/:id'
+            element={<EditBlog/>}/>
+            <Route exact path="/personal-resume"
+            element={<PersonalResume/>}/>
+            <Route exact path="/login"
+            element={<LoginForm/>}/>
+            <Route exact path="/signup"
+            element={<SignupForm/>} />
           </Routes>
         </div>
       </div>

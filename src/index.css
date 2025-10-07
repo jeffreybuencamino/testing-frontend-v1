@@ -109,3 +109,19 @@
 .create button:hover {
   color: #dececec2;
 }
+
+.navbar button {
+  margin-left: 16px;
+  padding: 6px;
+  background: none;           /* Remove button default background */
+  border: none;               /* Remove button border */
+  color: inherit;             /* Inherit text color (usually #333) */
+  font-family: inherit;       /* Inherit font */
+  font-size: inherit;         /* Inherit font size */
+  cursor: pointer;            /* Pointer cursor on hover */
+  text-decoration: none;      /* No underline */
+}
+
+.navbar button:hover {
+  color: #dececec2;
+}
