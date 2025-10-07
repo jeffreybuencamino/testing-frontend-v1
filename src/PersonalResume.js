@@ -41,7 +41,7 @@ const PersonalResume = () => {
         year: "2018",
       },
     ],
-    skills: ["React", "Node.js", "MongoDB", "Express", "HTML", "CSS", "JavaScript", "Python", "LangGraph", "Flask"],
+    skills: ["React", "Node.js", "MongoDB", "Express", "HTML", "CSS", "JavaScript", "Python", "LangGraph", "Flask", "Github Copilot"],
     projects: [
       {
         name: "Node.js Backend Server",
@@ -69,7 +69,16 @@ const PersonalResume = () => {
         <h2>Summary</h2>
         <p>{resumeData.summary}</p>
       </section>
-
+      <br />
+      <section>
+        <h2>Skills</h2>
+        <ul>
+          {resumeData.skills.map((skill, i) => (
+            <li key={i}>{skill}</li>
+          ))}
+        </ul>
+      </section>
+<br />
       <section>
         <h2>Experience</h2>
         {resumeData.experience.map((job, index) => (
@@ -95,15 +104,7 @@ const PersonalResume = () => {
           </div>
         ))}
       </section>
-<br /><br />
-      <section>
-        <h2>Skills</h2>
-        <ul>
-          {resumeData.skills.map((skill, i) => (
-            <li key={i}>{skill}</li>
-          ))}
-        </ul>
-      </section>
+
 <br /><br />
       <section>
         <h2>Projects</h2><br />

@@ -2,11 +2,31 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from './firebase/firebase'; // your Firebase auth instance
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from 'firebase/auth';
+import { useState, useEffect } from "react";
+
 
 
 const Navbar = () => {
     
       const navigate = useNavigate();
+
+      const [user, setUser] = useState(null);
+
+  useEffect(()=>{
+    const authState = onAuthStateChanged(auth, (user)=>{
+      console.log("Logging to console for testing");
+      if (user) {
+        setUser(user);
+        console.log(`User signed in: ${user.email}`);
+      } else {
+        setUser(null);
+        console.log('User signed out');
+      }
+    });
+
+    return () => authState();
+  },[])
 
 
     const handleSignOut = () => {
@@ -29,7 +49,7 @@ const Navbar = () => {
                 <Link to="/create">New Post</Link>
                 <Link to="/personal-resume">Personal Resume</Link>
                 <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
+                <Link id="sign-up-link" to="/signup">Sign Up</Link>
                 <button onClick={handleSignOut} className="signout-button">Log out</button>
             </div>
         </nav>

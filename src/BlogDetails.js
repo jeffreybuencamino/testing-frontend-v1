@@ -1,15 +1,29 @@
 import { useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import meme from "./assets/nicolasCageMeme.png";
 
 const BlogDetails = () => {
 
     const { id } = useParams()
 
-    const { data} = useFetch('http://localhost:3000/blog/' + id)
+    // Use relative URL for dev proxy
+    const { data, isLoading,error} = useFetch('/blog/' + id)
 
     return ( 
 
-        <article>
+        <div>
+
+        {error && (
+            <div className="error-template">
+                <h2>Oops! Something went wrong!</h2>
+                <p>{error}</p>
+                <img src={meme} alt="Error placeholder" />
+            </div>
+        )}
+
+        {isLoading && <div>Loading...</div>}
+
+        {data && (<article>
             <div className="blog-details">
                 <h1>{data.title}</h1>
                 <p>Blog Id: {id}</p>
@@ -18,7 +32,8 @@ const BlogDetails = () => {
 
                 <p>{data.body}</p>
             </div>
-        </article>
+        </article>)}
+        </div>
      );
 }
  

@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from "react"; 
-import MainDisplay from "./MainDisplay";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MainDisplay from "./MainDisplay";
 import Navbar from "./Navbar";
 import Create from "./Create";
 import BlogDetails from "./BlogDetails";
@@ -9,6 +9,11 @@ import EditBlog from "./EditBlog";
 import PersonalResume from "./PersonalResume";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+// import { onAuthStateChanged } from 'firebase/auth';
+// import { auth } from './firebase/firebase';  // your Firebase auth instance
+// import { useEffect, useState } from "react";
+
+
 
 function App() {
 
@@ -16,7 +21,7 @@ function App() {
   // const [data, setData] = useState([]);
   // const [isPending, setIsPending] = useState(true);
   // const [error, setError] = useState(null);
-  // const {data, message} = useFetch("http://localhost:3000/blogs")
+  // const {data, message} = useFetch("/blogs")
   
 
   // const handleAddBookButton = () => {
@@ -32,7 +37,7 @@ function App() {
   //     rating: 9
   //   }
 
-  //   fetch('http://localhost:3000/test-api', {
+  //   fetch('/test-api', {
   //     method: "POST",
   //     headers: {"Content-Type": "application/json"},
   //     body: JSON.stringify(bookData)
@@ -48,7 +53,7 @@ function App() {
     // GET request example
   // useEffect(() => {
   //   //Fetching welcome message
-  //   fetch("http://localhost:3000/api/message")
+  //   fetch("/api/message")
   //     .then((res) => res.json())
   //     .then((data) => {
   //       console.log(data.message);
@@ -56,7 +61,7 @@ function App() {
   //     });
 
   //     // Fetching blogs data
-  //   fetch("http://localhost:3000/blogs")
+  //   fetch("/blogs")
   //   .then(res => res.json())
   //   .then((data) => {
   //     // console.log(data);
@@ -65,6 +70,20 @@ function App() {
   //   })
   // }, []);
 
+  // const [user, setUser] = useState(null);
+
+  // useEffect(()=>{
+  //   onAuthStateChanged(auth, (user)=>{
+  //     console.log("Logging to console for testing");
+  //     if (user) {
+  //       setUser(user);
+  //       console.log('User signed in:', user.email);
+  //     } else {
+  //       setUser(null);
+  //       console.log('User signed out');
+  //     }
+  //   })
+  // },[user])
 
 
   return (

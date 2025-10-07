@@ -8,8 +8,8 @@ const { id } = useParams();
   const [formData, setFormData] = useState({ title: '', subject: '', body: '' });
 
   useEffect(() => {
-    // Fetch blog document  and setFormData info
-    fetch(`http://localhost:3000/edit/${id}`)
+  // Fetch blog document and setFormData info (relative path for CRA proxy)
+  fetch(`/edit/${id}`)
       .then(res => res.json())
       .then(data => {
         setFormData(data);
@@ -25,7 +25,7 @@ const { id } = useParams();
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/editblog/${id}`, {
+  fetch(`/editblog/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
