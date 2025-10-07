@@ -3,11 +3,29 @@ import useFetch from "./useFetch";
 import meme from "./assets/nicolasCageMeme.png"
 
 
-const MainDisplay = () => {
+const MainDisplay = ({user}) => {
     // Use relative URL so the CRA dev server proxy (package.json "proxy") will forward requests
     const {data, message, isLoading, error} = useFetch("/blogs")
 
+    // Show login prompt if user is not authenticated
+    if (!user) {
+        return (
+            <div className="home">
+                <h1>Welcome to Jeff's Blog</h1>
+                <div className="auth-prompt">
+                    <h2>Please sign in to view blog posts</h2>
+                    <p>You need to be logged in to access the blog content.</p>
+                    <div className="auth-links">
+                        <Link to="/login" className="auth-link">Login</Link>
+                        <span> or </span>
+                        <Link to="/signup" className="auth-link">Sign Up</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
+    // Show blog content if user is authenticated
     return ( 
         <div className="home">
             <h1>{ message}</h1>

@@ -9,14 +9,30 @@ import EditBlog from "./EditBlog";
 import PersonalResume from "./PersonalResume";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
-// import { onAuthStateChanged } from 'firebase/auth';
-// import { auth } from './firebase/firebase';  // your Firebase auth instance
-// import { useEffect, useState } from "react";
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase';  // your Firebase auth instance
+import { useEffect, useState } from "react";
 
 
 
 function App() {
 
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("Auth state changed:", user ? `User: ${user.email}` : 'No user');
+      setUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   // const [message, setMessage] = useState("");
   // const [data, setData] = useState([]);
   // const [isPending, setIsPending] = useState(true);
@@ -90,12 +106,12 @@ function App() {
     <Router>
 
       <div className="App">
-        <Navbar/>
+        <Navbar user={user}/>
         <div className="content">
           <Routes>
             <Route 
             exact path="/"
-            element={<MainDisplay/>}>
+            element={<MainDisplay user={user}/>}>
             </Route>
             <Route exact path="/create"
             element={<Create/>}/>
