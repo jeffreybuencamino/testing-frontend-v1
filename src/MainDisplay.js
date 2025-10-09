@@ -3,11 +3,56 @@ import useFetch from "./useFetch";
 import meme from "./assets/nicolasCageMeme.png"
 
 
-const MainDisplay = () => {
-    // Use relative URL so the CRA dev server proxy (package.json "proxy") will forward requests
+const MainDisplay = ({user}) => {
+    // useFetch uses a relative URL so the CRA dev server proxy (package.json "proxy") will forward requests
     const {data, message, isLoading, error} = useFetch("/blogs")
 
+    const handleDeleteBlog = (blogId, blogTitle) => {
+        // Show confirmation popup
+        const confirmDelete = window.confirm(`Are you sure you want to delete this blog: "${blogTitle}"?`);
+        
+        if (confirmDelete) {
+            // User clicked "OK" - proceed with deletion
+            fetch(`/deleteblog/${blogId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Blog has been deleted");
+                    // Refresh the page to show updated blog list
+                    window.location.reload();
+                } else {
+                    alert("Failed to delete blog");
+                }
+            })
+            .catch(err => {
+                console.error('Delete error:', err);
+                alert("Error deleting blog");
+            });
+        }
+        // If user clicked "Cancel", nothing happens
+    };
 
+    // Show login prompt if user is not authenticated
+    if (!user) {
+        return (
+            <div className="home">
+                <h1>Welcome to Jeff's Blog</h1>
+                <div className="auth-prompt">
+                    <h2>Please sign in to view blog posts</h2>
+                    <p>You need to be logged in to access the blog content.</p>
+                    <div className="auth-links">
+                        <Link to="/login" className="auth-link">Login</Link>
+                        <span> or </span>
+                        <Link to="/signup" className="auth-link">Sign Up</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Show blog content if user is authenticated
     return ( 
         <div className="home">
             <h1>{ message}</h1>
@@ -38,6 +83,9 @@ const MainDisplay = () => {
                         </Link>
                         <button>
                             <Link to={`/edit/${blog._id}`}>Update Blog</Link>
+                        </button>
+                        <button onClick={() => handleDeleteBlog(blog._id, blog.title)}>
+                            Delete Blog
                         </button>
                     </div>
                     </div>
