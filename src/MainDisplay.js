@@ -4,8 +4,35 @@ import meme from "./assets/nicolasCageMeme.png"
 
 
 const MainDisplay = ({user}) => {
-    // Use relative URL so the CRA dev server proxy (package.json "proxy") will forward requests
+    // useFetch uses a relative URL so the CRA dev server proxy (package.json "proxy") will forward requests
     const {data, message, isLoading, error} = useFetch("/blogs")
+
+    const handleDeleteBlog = (blogId, blogTitle) => {
+        // Show confirmation popup
+        const confirmDelete = window.confirm(`Are you sure you want to delete this blog: "${blogTitle}"?`);
+        
+        if (confirmDelete) {
+            // User clicked "OK" - proceed with deletion
+            fetch(`/deleteblog/${blogId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Blog has been deleted");
+                    // Refresh the page to show updated blog list
+                    window.location.reload();
+                } else {
+                    alert("Failed to delete blog");
+                }
+            })
+            .catch(err => {
+                console.error('Delete error:', err);
+                alert("Error deleting blog");
+            });
+        }
+        // If user clicked "Cancel", nothing happens
+    };
 
     // Show login prompt if user is not authenticated
     if (!user) {
@@ -56,6 +83,9 @@ const MainDisplay = ({user}) => {
                         </Link>
                         <button>
                             <Link to={`/edit/${blog._id}`}>Update Blog</Link>
+                        </button>
+                        <button onClick={() => handleDeleteBlog(blog._id, blog.title)}>
+                            Delete Blog
                         </button>
                     </div>
                     </div>
