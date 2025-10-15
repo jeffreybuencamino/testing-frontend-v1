@@ -9,7 +9,7 @@ const PersonalResume = () => {
     linkedin: "linkedin.com/in/you",
     github: "github.com/you",
     summary:
-      "Passionate developer skilled in building responsive web apps with React and Node.js.",
+      "Aspiring web developer skilled in building responsive web apps with React, Bootstrap 5, and Node.js.",
     experience: [
       {
         company: "Chevron Gas Station",
@@ -33,6 +33,17 @@ const PersonalResume = () => {
           "Maintain high productivity in a fast-paced environments while minimizing errors and damages."
         ],
       },
+      {
+        company: "Cozy Home Estates, LLC",
+        role: "Founder",
+        from: "2019",
+        to: "2023",
+        bullets: [
+          "Built a real estate wholesaling company from ground zero.",
+          "Directed acquisitions and conducted in-depth property valuations.",
+          "Negotiated deals and maintained client relationships."
+        ]
+      }
     ],
     education: [
       {
@@ -41,13 +52,23 @@ const PersonalResume = () => {
         year: "2018",
       },
     ],
-    skills: ["React", "Node.js", "MongoDB", "Express", "HTML", "CSS", "JavaScript", "Python", "LangGraph", "Flask", "Github Copilot"],
+    skills: ["React", "Node.js", "MongoDB", "Express", "Bootstrap 5", "HTML", "CSS", "JavaScript", "Python", "LangGraph", "Flask", "Github Copilot", "Prompt Engineering", "Effective Listening"],
     projects: [
       {
         name: "Node.js Backend Server",
-        description: "Backend server for handling React routes. Personal website showcasing projects and skills.",
+        description: "Backend server for handling React routes for blog. Personal website showcasing projects and skills.",
         link: "https://github.com/jeffreybuencamino/testing-backendNode.js-v1",
       },
+      {
+        name: "Real Estate CRM (Node.js, React, MongoDB)",
+        description: "Custom real estate CRM CRUD application that manages leads, sends to live MongoDB database, utilizes Node.js backend, etc. ",
+        link: "https://github.com/jeffreybuencamino/rei-crm-frontend",
+      },
+      {
+        name: "AI Voice Assistant (Retell AI, Flask, HTTP Requests)",
+        description: "Custom Voice Assistant meant to answer prospective employer phone calls for prospective employers highlighting skills, experience, etc. Utilizes Retell AI, HTTP requests, and Flask.",
+        link: "https://github.com/jeffreybuencamino/retell-ai-voice-assistant"
+      }
     ],
   };
 
@@ -109,10 +130,37 @@ const PersonalResume = () => {
       <section>
         <h2>Projects</h2><br />
         {resumeData.projects.map((proj, i) => (
-          <div key={i}>
+          <div className="m-2 blog-preview" key={i}>
             <h3>{proj.name}</h3>
             <p>{proj.description}</p>
             <a href={proj.link} target="_blank" rel="noreferrer">View Project</a>
+
+
+              {/* ADDS XTRA </a> TAG FOR 2ND TO LAST PROJECT  */}
+            {i === resumeData.projects.length - 2 && (
+               <a 
+                href="https://github.com/jeffreybuencamino/rei-crm-backend" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="ms-3"
+                // style={{ marginLeft: '10px', color: 'blue' }}
+              >
+                View Project Backend
+              </a>
+            )}
+
+            {/* ADDS XTRA </a> TAG FOR LAST PROJECT */}
+            {i === resumeData.projects.length - 1 && (
+              <a 
+                href="https://example.com/extra-link" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="ms-3"
+                // style={{ marginLeft: '10px', color: 'blue' }}
+              >
+                Test my voice assistant
+              </a>
+            )}
           </div>
         ))}
       </section>
