@@ -1,0 +1,6 @@
+static:
+  publish: build
+  redirects:
+    - source: /*
+      destination: /index.html
+      status: 200
